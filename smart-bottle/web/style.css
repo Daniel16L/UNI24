@@ -1,0 +1,144 @@
+:root {
+  --bg: #f3f6fa;
+  --card: #ffffff;
+  --text: #13202e;
+  --muted: #66758a;
+  --line: #dde4ec;
+  --accent: #0b5cad;
+  --accent-soft: #e3eefa;
+  --ok: #2f8ae0;
+  --mid: #e8b51f;
+  --low: #e0453a;
+  --good: #1f9d5b;
+  --radius: 14px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e141b;
+    --card: #17202a;
+    --text: #e8eef5;
+    --muted: #93a2b5;
+    --line: #2a3644;
+    --accent: #5aa6f0;
+    --accent-soft: #1c2d40;
+    --ok: #4aa3f5;
+    --mid: #f0c240;
+    --low: #f0645a;
+    --good: #3cc47e;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.topbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px 16px; background: var(--card); border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; z-index: 5; flex-wrap: wrap;
+}
+.brand { display: flex; align-items: center; gap: 8px; font-weight: 650; font-size: 17px; }
+.brand svg { width: 22px; height: 22px; color: var(--accent); }
+.conn { display: flex; align-items: center; gap: 8px; }
+
+.pill { font-size: 12px; padding: 3px 10px; border-radius: 99px; font-weight: 600; }
+.pill.off { background: var(--line); color: var(--muted); }
+.pill.on { background: color-mix(in srgb, var(--good) 18%, transparent); color: var(--good); }
+.pill.busy { background: var(--accent-soft); color: var(--accent); }
+
+button {
+  font: inherit; font-weight: 600; border-radius: 10px; padding: 8px 14px;
+  border: 1px solid transparent; cursor: pointer;
+}
+button:disabled { opacity: .5; cursor: not-allowed; }
+.primary { background: var(--accent); color: #fff; }
+.secondary { background: var(--accent-soft); color: var(--accent); }
+.ghost { background: transparent; color: var(--text); border-color: var(--line); }
+.small { padding: 5px 10px; font-size: 13px; }
+.danger { color: var(--low); }
+
+.banner { margin: 12px 16px 0; padding: 10px 14px; border-radius: 10px; display: flex; gap: 12px; align-items: center; justify-content: space-between; }
+.banner.warn { background: color-mix(in srgb, var(--mid) 22%, var(--card)); }
+.banner.info { background: var(--accent-soft); }
+.banner[hidden] { display: none; }
+
+.grid {
+  display: grid; gap: 16px; padding: 16px; max-width: 1100px; margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; min-width: 0; }
+h2 { font-size: 16px; margin: 0 0 12px; }
+h3 { font-size: 13px; margin: 18px 0 6px; color: var(--muted); font-weight: 600; }
+.muted { color: var(--muted); }
+p.small, .small { font-size: 13px; }
+
+/* ---- sticla ---- */
+.bottle-card { display: flex; flex-direction: column; align-items: center; }
+#bottle { width: 100%; max-width: 220px; height: auto; }
+.bottle-bg { fill: color-mix(in srgb, var(--line) 45%, transparent); }
+.bottle-outline { fill: none; stroke: var(--text); stroke-width: 3; stroke-linejoin: round; opacity: .75; }
+.liquid { fill: var(--liq, var(--ok)); transition: fill .6s; }
+.liquid.back { opacity: .45; }
+#bottle[data-level="ok"]  { --liq: var(--ok); }
+#bottle[data-level="mid"] { --liq: var(--mid); }
+#bottle[data-level="low"] { --liq: var(--low); }
+#bottle[data-absent="1"] .liquid { opacity: .15; }
+.readout { text-align: center; margin-top: 8px; }
+.readout .big { font-size: 40px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.readout .big small { font-size: 16px; color: var(--muted); font-weight: 600; }
+.readout .sub { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+
+/* ---- obiectiv ---- */
+.goal-num { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.progress { height: 12px; background: var(--line); border-radius: 99px; overflow: hidden; margin: 8px 0; }
+#goalBar { height: 100%; width: 0; background: var(--accent); border-radius: 99px; transition: width .6s; }
+#goalBar.done { background: var(--good); }
+
+/* ---- grafice ---- */
+.chart { width: 100%; height: auto; display: block; }
+#chartDay { height: 140px; }
+.chart .grid-line { stroke: var(--line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.chart .series { fill: none; stroke: var(--accent); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.chart .area { fill: var(--accent); opacity: .12; }
+.chart .bar { fill: var(--accent); }
+.chart .bar.met { fill: var(--good); }
+.chart .goal-line { stroke: var(--muted); stroke-dasharray: 4 4; stroke-width: 1; }
+.chart text { fill: var(--muted); font-size: 10px; font-family: inherit; }
+.chart .empty-msg { font-size: 12px; }
+
+/* ---- evenimente ---- */
+.events { list-style: none; padding: 0; margin: 0; max-height: 360px; overflow: auto; }
+.events li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+.events li:last-child { border-bottom: 0; }
+.events .drink b { color: var(--accent); }
+.events .refill b { color: var(--good); }
+
+/* ---- setări ---- */
+.cal-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.cal-row button { min-width: 140px; }
+label { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 10px 0; font-size: 14px; }
+label.check { justify-content: flex-start; }
+input[type=number], select {
+  font: inherit; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--line);
+  background: var(--bg); color: var(--text); width: 150px;
+}
+.row-end { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+
+.toast {
+  position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px);
+  background: var(--text); color: var(--bg); padding: 10px 16px; border-radius: 10px;
+  opacity: 0; pointer-events: none; transition: .25s; max-width: calc(100% - 32px);
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 400px) {
+  .conn { width: 100%; justify-content: space-between; }
+  input[type=number], select { width: 120px; }
+}
