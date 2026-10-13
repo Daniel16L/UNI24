@@ -9,7 +9,7 @@ Senzor ──► STM32F429I-DISC1 ──UART5──► ESP32 ──BLE (Nordic U
            LCD, calibrare în RAM        transparentă                IndexedDB (istoric local)
 ```
 
-Protocolul comun e descris în [PROTOCOL.md](PROTOCOL.md).
+Protocolul comun e descris în [PROTOCOL.md](PROTOCOL.md), iar lista de componente în [BOM.md](BOM.md).
 
 ## Structură
 
